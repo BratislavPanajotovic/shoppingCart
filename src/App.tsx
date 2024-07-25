@@ -1,5 +1,5 @@
 function App() {
-  return <>'Hello'</>;
+  return <div className="align-center justify-center flex">'Hello'</div>;
 }
 
 export default App;
