@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import Loader from "./Loader";
+import { formatCurrency } from "../utilities/formatCurrency";
+import Button from "./Button";
+import UpdateItemQuantity from "./UpdateItemQuantity";
 
 const API_URL = "https://fakestoreapi.com/products";
 
@@ -28,7 +31,7 @@ export async function getStore(): Promise<Product[]> {
 export function Store() {
   const [items, setItems] = useState<Product[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  const quantity = 2;
   useEffect(() => {
     async function fetchData() {
       try {
@@ -50,7 +53,7 @@ export function Store() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full h-full">
       <h1 className="text-3xl font-bold text-center my-8">Store</h1>
       {items ? (
         <div className="w-full px-4">
@@ -75,7 +78,7 @@ export function Store() {
                     {item.description}
                   </p>
                   <p className="text-green-700 font-semibold mb-2">
-                    ${item.price}
+                    ${formatCurrency(item.price)}
                   </p>
                   <div className="flex items-center">
                     <p className="text-yellow-500 font-bold">
@@ -84,6 +87,13 @@ export function Store() {
                     <p className="text-gray-600 ml-2">
                       ({item.rating.count} reviews)
                     </p>
+                  </div>
+                  <div className="mt-auto">
+                    {quantity === 0 ? (
+                      <Button type="small"> </Button>
+                    ) : (
+                      <UpdateItemQuantity currentQuantity={quantity} />
+                    )}
                   </div>
                 </div>
               </div>
