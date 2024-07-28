@@ -78,7 +78,7 @@ export function Store() {
                     {item.description}
                   </p>
                   <p className="text-green-700 font-semibold mb-2">
-                    ${formatCurrency(item.price)}
+                    {formatCurrency(item.price)}
                   </p>
                   <div className="flex items-center">
                     <p className="text-yellow-500 font-bold">
