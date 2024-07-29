@@ -3,6 +3,7 @@ import Loader from "./Loader";
 import { formatCurrency } from "../utilities/formatCurrency";
 import Button from "./Button";
 import UpdateItemQuantity from "./UpdateItemQuantity";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 
 const API_URL = "https://fakestoreapi.com/products";
 
@@ -28,10 +29,17 @@ export async function getStore(): Promise<Product[]> {
   return data;
 }
 
-export function Store() {
+export function Store({ id }) {
   const [items, setItems] = useState<Product[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const quantity = 2;
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+  } = useShoppingCart();
+  const quantity = getItemQuantity(id); //! ID je kod mene povucen tako da ga dobijam iz getStore fn - to regulisati sledece
+
   useEffect(() => {
     async function fetchData() {
       try {
